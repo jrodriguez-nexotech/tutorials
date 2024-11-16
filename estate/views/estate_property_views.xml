@@ -42,9 +42,11 @@
                         <h1>
                             <field name="name"/>
                         </h1>
+                        <field name="tag_ids" widget="many2many_tags"/>
                     </div>
                     <group>
                         <group>
+                            <field name="tipo_propiedad_id"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
                         </group>
@@ -67,6 +69,19 @@
                                     <field name="garden_orientation"/>
                                     <field name="state"/>
                                     <field name="active"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Ofertas">
+                            <group>
+                                <field name="offer_id"/>
+                            </group>
+                        </page>
+                        <page string="Otra información">
+                            <group>
+                                <group>
+                                    <field name="comprador_id"/>
+                                    <field name="vendedor_id"/>
                                 </group>
                             </group>
                         </page>

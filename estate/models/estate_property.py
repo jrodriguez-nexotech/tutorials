@@ -36,4 +36,15 @@ class EstateProperty(models.Model):
         string="state", required=True, copy=False, default='nuevo'
     )
     active = fields.Boolean(string='Active', default=True)
+    tipo_propiedad_id =fields.Many2one("estate.property.type",string="Tipo Propiedad")
+    comprador_id =fields.Many2one("res.users",string="Comprador", copy=False, default=lambda self: self.env.user)
+    vendedor_id =fields.Many2one("res.partner",string="Vendedor", copy=False)
+    tag_ids= fields.Many2many("estate.property.tag", string="Tags")
+    offer_id= fields.One2many("estate.property.offer","property_id",string="Offers")
+    total_area=fields.Float(compute="_area_total")
+
+    def _area_total(self):
+        total_Area = self.living_area + self.garden_area
+        return total_Area
+     
   
