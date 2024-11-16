@@ -6,7 +6,11 @@
             <list string="Ofertas">
                 <field name="price"/>
                 <field name="partner_id"/>
-                <field name="status"/>
+                <field name="validity"/>
+                <field name="date_deadline"/>
+                <button name="action_accept" type="object" title="Accept" icon="fa-check"/>
+                <button name="action_refuse" type="object" title="Refuse" icon="fa-times" />
+                <field name="status" />
             </list>
         </field>
     </record>
@@ -21,6 +25,8 @@
                         <field name="price"/>
                         <field name="partner_id"/>
                         <field name="status"/>
+                        <field name="validity"/>
+                        <field name="date_deadline"/>
                     </group>
                     
                 </sheet>
