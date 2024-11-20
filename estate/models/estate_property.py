@@ -6,6 +6,7 @@ from odoo.tools import float_compare, float_is_zero
 class EstateProperty(models.Model):
     _name = 'estate.property'
     _description = 'Real Estate Property'
+    _order='id desc'
     name = fields.Char(string='Title', required=True)
     description = fields.Text(string='Description', copy=False)
     postcode = fields.Char(string='Postal Code')
@@ -88,10 +89,16 @@ class EstateProperty(models.Model):
     def action_sold(self):
         if "cancelado" in self.mapped("state"):
             raise UserError("Las propiedades canceladas no se pueden vender.")
-        return self.write({"state": "sold"})
+        return self.write({"state": "vendido"})
 
     def action_cancel(self):
         if "vendido" in self.mapped("state"):
             raise UserError("Las propiedades vendidas no se pueden cancelar.")
         return self.write({"state": "canceled"})
+    
+    @api.ondelete(at_uninstall=False)  
+    def _unlink_if_not_new_or_cancelled(self):
+        if any(property.state  in ['nuevo', 'cancelado'] for property in self):
+            raise UserError("No se puede eliminar la propiedad porque su estado no es 'Nueva' o 'Cancelada'.")
+
   
